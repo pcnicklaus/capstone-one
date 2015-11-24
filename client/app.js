@@ -13,11 +13,6 @@ app.config(function ($routeProvider, $authProvider, $locationProvider) {
         clientId: '387733802006-t8ge692s6hna68n6tk0pjol5can9mg8d.apps.googleusercontent.com',
         redirectUri: window.location.origin,
     });
-    $authProvider.instagram({
-        url: '/auth/instagram',
-        clientId: 'UPDATE ME',
-        redirectUri: window.location.origin,
-    });
 
     $authProvider.facebook({
         url: '/auth/facebook',
@@ -29,7 +24,6 @@ app.config(function ($routeProvider, $authProvider, $locationProvider) {
         url: '/auth/twitter',
         clientId: 'FQHN1BJSpb5zzRd1MCQ02ks9d',
         redirectUri: window.location.origin
-
     });
 
     $routeProvider
@@ -74,9 +68,9 @@ app.config(function ($routeProvider, $authProvider, $locationProvider) {
         })
         .when('/navigation', {
             templateUrl: 'partials/navigation.html',
-            controller: 'navigationCtrl'
+            controller: 'addCtrl'
         })
-        // .otherwise('/');
+        .otherwise('/');
 
 });
 

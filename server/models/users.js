@@ -77,7 +77,7 @@ User.pre('save', function(next) {
 });
 
 // need to add this for doing near searches or something like that!!!
-// User.index({location: '2dsphere'});
+User.index({location: '2dsphere'});
 
 // verify for plain-text and hashed passwords
 User.methods.comparePassword = function(password, done) {

@@ -1,0 +1,22 @@
+{
+  "name": "date.now()",
+  "version": "1.0.1",
+  "description": "Another dating app.",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test*",
+    "gruntFile.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "angularjs-geolocation": "~0.1.1",
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4",
+    "modernizr": "~3.2.0",
+    "holderjs": "~2.9.0"
+  }
+}
