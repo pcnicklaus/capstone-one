@@ -11,7 +11,7 @@ var cors = require('cors');
 var request = require('request');
 
 var config = require('../../_config');
-var User = require('../models/user.js');
+var User = require('../models/users.js');
 
 
 // *** login required *** //
@@ -303,83 +303,6 @@ router.post('/google', function (req, res) {
     });
 });
 
-
-// *** instagram auth *** //
-router.post('/instagram', function (req, res) {
-    var accessTokenUrl = 'https://api.instagram.com/oauth/access_token';
-
-    var params = {
-        client_id: req.body.clientId,
-        redirect_uri: req.body.redirectUri,
-        client_secret: config.INSTAGRAM_SECRET,
-        code: req.body.code,
-        grant_type: 'authorization_code'
-    };
-
-    // Step 1. Exchange authorization code for access token.
-    request.post({
-        url: accessTokenUrl,
-        form: params,
-        json: true
-    }, function (error, response, body) {
-        // Step 2a. Link user accounts.
-        if (req.headers.authorization) {
-            User.findOne({
-                instagramProfileID: body.user.id
-            }, function (err, existingUser) {
-                if (existingUser) {
-                    return res.status(409).send({
-                        message: 'There is already an Instagram account that belongs to you'
-                    });
-                }
-
-                var token = req.headers.authorization.split(' ')[1];
-                var payload = jwt.decode(token, config.TOKEN_SECRET);
-
-                User.findById(payload.sub, function (err, user) {
-                    if (!user) {
-                        return res.status(400).send({
-                            message: 'User not found'
-                        });
-                    }
-                    user.instagramProfileID = body.user.id;
-                    user.email = null;
-                    user.save(function () {
-                        var token = createToken(user);
-                        res.send({
-                            token: token,
-                            user: user
-                        });
-                    });
-                });
-            });
-        } else {
-            // Step 2b. Create a new user account or return an existing one.
-            User.findOne({
-                instagramProfileID: body.user.id
-            }, function (err, existingUser) {
-                if (existingUser) {
-                    return res.send({
-                        token: createToken(existingUser),
-                        user: existingUser
-                    });
-                }
-                var user = new User({
-                    instagramProfileID: body.user.id,
-                    email: null
-                });
-
-                user.save(function () {
-                    var token = createToken(user);
-                    res.send({
-                        token: token,
-                        user: user
-                    });
-                });
-            });
-        }
-    });
-});
 
 
 /*

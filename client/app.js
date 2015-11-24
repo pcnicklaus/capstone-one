@@ -76,7 +76,7 @@ app.config(function ($routeProvider, $authProvider, $locationProvider) {
             templateUrl: 'partials/navigation.html',
             controller: 'navigationCtrl'
         })
-        .otherwise('/');
+        // .otherwise('/');
 
 });
 

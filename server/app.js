@@ -14,10 +14,13 @@ var config = require('../_config');
 // *** express instance *** //
 var app = express();
 
+mongoose.connect("mongodb://localhost/datenow");
+
 
 // *** routes *** //
 var mainRoutes = require('./routes/index');
 var authRoutes = require('./routes/auth');
+var userRoutes = require('./routes/users.js');
 
 
 // *** config middleware *** //
@@ -26,15 +29,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
+app.use('/bower_components',  express.static(__dirname + '/bower_components')); // Use BowerComponents
+
 
 
 // *** mongoose ** //
-mongoose.connect(config.MONGO_URI);
+// mongoose.connect(config.MONGO_URI);
 
+// *** main routes *** //
 // *** main routes *** //
 app.use('/', mainRoutes);
 app.use('/auth', authRoutes);
-
+app.use('/users', userRoutes);
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../client/index.html'));
+});
 
 // *** handle 404 error *** //
 app.use(function(req, res, next) {
