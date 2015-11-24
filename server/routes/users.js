@@ -2,19 +2,21 @@ var path = require('path');
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose-q')(require('mongoose'));
+// var mongoose = require('mongoose');
 var User = require('../models/users.js');
 
 
 router.get('/', function(req, res, next){
-  User.find(function(err, response){
-    if(err){
-      console.log(err);
-      res.send(err);
-    } else {
-      console.log(response);
-      res.send(err);
-    }
-  });
+  User.findQ()
+    .then(function (result) {
+      console.log(result);
+      res.json(result);
+    })
+    .catch(function (error) {
+      console.log(error);
+      res.json(error);
+    })
+    .done();
 });
 
 
@@ -33,11 +35,24 @@ router.post('/', function(req, res, next) {
         res.json(result);
     })
     .catch(function(err) {
-        console.log(err);
-        res.send(err);
+        res.json(err);
     })
     .done();
 });
+
+router.get('/:id', function(req, res, next){
+  User.findByIdQ(req.params.id)
+    .then(function (result) {
+      console.log(result);
+      res.json(result);
+    })
+    .catch(function (error) {
+      console.log(error);
+      res.json(error);
+    })
+    .done();
+});
+
 
 router.put('/:id', function (req, res, next) {
   var update = req.body;
