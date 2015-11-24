@@ -1,4 +1,4 @@
-var app = angular.module('MyApp', ['ngRoute', 'satellizer']);
+var app = angular.module('MyApp', ['ngRoute', 'satellizer', 'geolocation']);
 
 app.config(function ($routeProvider, $authProvider, $locationProvider) {
 
@@ -69,8 +69,8 @@ app.config(function ($routeProvider, $authProvider, $locationProvider) {
         .when('/navigation', {
             templateUrl: 'partials/navigation.html',
             controller: 'addCtrl'
-        })
-        .otherwise('/');
+        });
+        // .otherwise('/');
 
 });
 

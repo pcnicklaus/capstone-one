@@ -20,7 +20,7 @@ mongoose.connect("mongodb://localhost/datenow");
 // *** routes *** //
 var mainRoutes = require('./routes/index');
 var authRoutes = require('./routes/auth');
-var userRoutes = require('./routes/users.js');
+var daterRoutes = require('./routes/daters.js');
 
 
 // *** config middleware *** //
@@ -40,7 +40,7 @@ app.use('/bower_components',  express.static(__dirname + '/bower_components')); 
 // *** main routes *** //
 app.use('/', mainRoutes);
 app.use('/auth', authRoutes);
-app.use('/users', userRoutes);
+app.use('/daters', daterRoutes);
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });

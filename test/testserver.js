@@ -5,17 +5,17 @@ var chaiHttp = require('chai-Http');
 var mongoose = require('mongoose');
 
 var server = require('../server/app');
-var User = require('../server/models/users');
+var Dater = require('../server/models/daters');
 
 var should = chai.should();
 chai.use(chaiHttp);
 
-describe('Users', function() {
+describe('Daters', function() {
 
-  User.collection.drop();
+  Dater.collection.drop();
 
   beforeEach(function(done){
-    var newUser = new User({
+    var newDater = new Dater({
       email: 'test@test.com',
       password: '123',
       username: 'HonkeyMagoo',
@@ -23,26 +23,24 @@ describe('Users', function() {
       age: 33,
       location: [11.11, 22.22]
     });
-    newUser.save(function(err) {
+    newDater.save(function(err) {
       done();
     });
   });
   afterEach(function(done){
-    User.collection.drop();
+    Dater.collection.drop();
     done();
   });
 
-it('should list ALL Users on /users GET', function(done) {
+it('should list ALL Daters on /daters GET', function(done) {
   chai.request(server)
-    .get('/users')
+    .get('/daters')
     .end(function (err, res) {
       res.should.have.status(200);
       res.body.should.be.a('array');
       res.body[0].should.have.property('_id');
-      res.body[0].should.have.property('email');
       res.body[0].should.have.property('username');
       res.body[0].should.have.property('gender');
-      res.body[0].email.should.equal('test@test.com');
       res.body[0].username.should.equal('HonkeyMagoo');
       res.body[0].gender.should.equal('female');
       res.body[0].age.should.equal(33);
@@ -50,37 +48,32 @@ it('should list ALL Users on /users GET', function(done) {
     });
   });
 
-  it('should list a SINGLE user on /users/<id> GET', function(done) {
-    var newUser = new User ({
-      email: 'test@test.com',
-      password: '123',
+  it('should list a SINGLE user on /daters/<id> GET', function(done) {
+    var newDater = new Dater ({
       username: 'HonkeyMagoo',
       gender: 'female',
       age: 33,
       location: [11.11, 22.22]
     });
-    newUser.save(function (err, data) {
+    newDater.save(function (err, data) {
       chai.request(server)
-        .get('/users/' + data.id)
+        .get('/daters/' + data.id)
         .end(function (err, res) {
           res.should.have.status(200);
           res.should.be.json;
           res.body.should.have.property('_id');
-          res.body.should.have.property('email');
           res.body.should.have.property('username');
           res.body.should.have.property('gender');
-          res.body.email.should.equal('test@test.com');
           res.body.gender.should.equal('female');
           done();
         });
     });
   });
 
-  it('should add a SINGLE user on /users POST', function(done) {
+  it('should add a SINGLE user on /daters POST', function(done) {
     chai.request(server)
-      .post('/users')
+      .post('/daters')
       .send({
-        'email': 'howdy@do.com',
         'username': 'ScrappyMagoo',
         'gender': 'female',
         'age': 3

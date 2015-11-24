@@ -23,27 +23,6 @@ var User = new Schema({
   },
   instagramProfileID: {
     type: String
-  },
-  username: {
-    type: String,
-  },
-  gender: {
-    type: String,
-  },
-  age: {
-    type: Number,
-  },
-  location: {
-    type: [Number],
-  }, // [Long, Lat]
-  htmlverified: String,
-  created_at: {
-    type: Date,
-    default: Date.now
-  },
-  updated_at: {
-    type: Date,
-    default: Date.now
   }
 });
 
@@ -51,12 +30,6 @@ var User = new Schema({
 // hash before saving to database
 User.pre('save', function(next) {
   var user = this;
-
-  var now = new Date();
-  this.updated_at = now;
-  if(!this.created_at) {
-      this.created_at = now;
-  }
 
   // only hash if the password is new or modified
   if (!user.isModified('password')) return next();

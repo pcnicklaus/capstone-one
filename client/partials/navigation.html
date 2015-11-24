@@ -1,15 +1,16 @@
-<div class="container">
-<div class="header" ng-controller="addCtrl">
+<div class="container" ng-controller="addCtrl">
+<!-- <div class="header">
     <ul class="nav nav-pills pull-right">
         <li active><a href="">Join the Team</a></li>
         <li disabled><a href="">Find Teammates</a></li>
     </ul>
-</div>
+</div> -->
 <!-- Map and Side Panel -->
 <div class="row content">
     <!-- Google Map -->
+    <!-- Google Map -->
     <div class="col-md-7">
-        <div id="map"><img src="holder.js/645x645"></div>
+        <div id="map" style="width:645px; height:645px"></div>
     </div>
     <!-- Side Panel -->
     <div class="col-md-5">
@@ -24,8 +25,8 @@
                 <form name ="addForm" novalidate>
                     <!-- Text Boxes and Other User Inputs. Note ng-model binds the values to Angular $scope -->
                     <div class="form-group">
-                        <label for="username">Username <span class="badge">All fields required</span></label>
-                        <input type="text" class="form-control" id="username" placeholder="OldandGold" ng-model="formData.username" required>
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="What should we call ya?" ng-model="formData.username" required>
                     </div>
                     <label class="radio control-label">Gender</label>
                     <div class="radio">
@@ -40,23 +41,17 @@
                             Female
                         </label>
                     </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="radioother" value="What's it to ya?" ng-model="formData.gender">
-                            What's it to ya?
-                        </label>
-                    </div>
                     <div class="form-group">
                         <label for="age">Age</label>
-                        <input type="number" class="form-control" id="age" placeholder="72" ng-model="formData.age" required>
+                        <input type="number" class="form-control" id="age" placeholder="'bout how old are ya?" ng-model="formData.age">
                     </div>
                     <div class="form-group">
                         <label for="latitude">Latitude</label>
-                        <input type="text" class="form-control" id="latitude" value="39.500" ng-model="formData.latitude" readonly>
+                        <input type="text" class="form-control" id="latitude" placeholder="39.500" ng-model="formData.latitude">
                     </div>
                     <div class="form-group">
                         <label for="longitude">Longitude</label>
-                        <input type="text" class="form-control" id="longitude" value="-98.350" ng-model="formData.longitude" readonly>
+                        <input type="text" class="form-control" id="longitude" placeholder="-98.350" ng-model="formData.longitude">
                     </div>
                     <div class="form-group">
                         <label for="verified">HTML5 Verified Location? <span><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh"></span></button></span></label>

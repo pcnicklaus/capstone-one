@@ -1,4 +1,4 @@
-app.controller('signupCtrl', function($scope, $http, $auth, $location) {
+app.controller('signupCtrl', ['$scope', '$http', '$auth', '$location', function($scope, $http, $auth, $location) {
 
   $scope.signup = function() {
 
@@ -17,4 +17,4 @@ app.controller('signupCtrl', function($scope, $http, $auth, $location) {
 
   };
 
-});
+}]);
