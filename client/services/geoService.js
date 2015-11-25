@@ -1,6 +1,5 @@
 app.factory('geoService', function($rootScope, $http){
 
-
         var googleMapService = {};
         googleMapService.clickLat  = 0;
         googleMapService.clickLong = 0;
@@ -13,19 +12,29 @@ app.factory('geoService', function($rootScope, $http){
         var selectedLong = -98.35;
 
 
-        googleMapService.refresh = function(latitude, longitude){
+        googleMapService.refresh = function(latitude, longitude, filteredResults){
 
             locations = [];
 
             selectedLat = latitude;
             selectedLong = longitude;
 
-            $http.get('/daters').success(function(response){
+            if (filteredResults){
 
-                locations = convertToMapPoints(response);
+                locations = convertToMapPoints(filteredResults);
 
-                initialize(latitude, longitude);
-            }).error(function(){});
+                 initialize(latitude, longitude, true);
+            }
+
+            else {
+
+              $http.get('/daters').success(function(response){
+
+                    locations = convertToMapPoints(response);
+
+                    initialize(latitude, longitude, false);
+                }).error(function(){});
+            }
         };
 
 

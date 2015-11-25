@@ -69,6 +69,11 @@ app.config(function ($routeProvider, $authProvider, $locationProvider) {
         .when('/navigation', {
             templateUrl: 'partials/navigation.html',
             controller: 'addCtrl'
+        })
+
+        .when('/find', {
+            templateUrl: 'partials/queryForm.html',
+            controller: 'queryCtrl'
         });
         // .otherwise('/');
 

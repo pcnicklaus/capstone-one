@@ -78,4 +78,59 @@ router.delete('/:id', function (req, res, next) {
     });
 });
 
+router.post('/query/', function(req, res){
+
+       var lat = req.body.latitude;
+       var long = req.body.longitude;
+       var distance = req.body.distance;
+       var male = req.body.male;
+       var female = req.body.female;
+       var other  = req.body.other;
+       var minAge = req.body.minAge;
+       var maxAge = req.body.maxAge;
+       var favLang  = req.body.favlang;
+       var reqVerified = req.body.reqVerified;
+
+       var query = Dater.find({});
+
+       if(distance){
+
+           // MongoDB's geospatial - [long, lat]
+           query = query.where('location').near({ center: {type: 'Point', coordinates: [long, lat]},
+
+               // meters to miles.
+               maxDistance: distance * 1609.34, spherical: true});
+
+       }
+
+       // filter by Gender
+       if(male || female || other){
+           query.or([{ 'gender': male }, { 'gender': female }, {'gender': other}]);
+       }
+
+       // filter by Min Age
+       if(minAge){
+           query = query.where('age').gte(minAge);
+       }
+
+       // filter by Max Age
+       if(maxAge){
+           query = query.where('age').lte(maxAge);
+       }
+
+       // ...include filter for HTML5 Verified Locations
+       if(reqVerified){
+           query = query.where('htmlverified').equals("Yep (Thanks for giving us real data!)");
+       }
+
+       // Execute Query and Return the Query Results
+       query.exec(function(err, users){
+           if(err)
+               res.send(err);
+           else
+               // If no errors, respond with a JSON of all users that meet the criteria
+               res.json(users);
+       });
+   });
+
 module.exports = router;
