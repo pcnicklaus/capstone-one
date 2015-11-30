@@ -8,8 +8,8 @@ app.factory('geoService', function($rootScope, $http){
         var locations = [];
 
 
-        var selectedLat = 39.50;
-        var selectedLong = -98.35;
+        var selectedLat = 39.7392;
+        var selectedLong = -104.9903;
 
 
         googleMapService.refresh = function(latitude, longitude, filteredResults){
@@ -49,7 +49,6 @@ app.factory('geoService', function($rootScope, $http){
                     '<p><b>Username</b>: ' + dater.username +
                     '<br><b>Age</b>: ' + dater.age +
                     '<br><b>Gender</b>: ' + dater.gender +
-                    '<br><b>Favorite Language</b>: ' + dater.favlang +
                     '</p>';
 
                 locations.push({
@@ -74,7 +73,7 @@ var initialize = function(latitude, longitude, filter) {
     if (!map){
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 3,
+            zoom: 12,
             center: myLatLng
         });
     }
@@ -104,40 +103,10 @@ var initialize = function(latitude, longitude, filter) {
 
     // bouncing red marker
     var initialLocation = new google.maps.LatLng(latitude, longitude);
-    var marker = new google.maps.Marker({
-        position: initialLocation,
-        animation: google.maps.Animation.BOUNCE,
-        map: map,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-    });
-    lastMarker = marker;
 
 
     map.panTo(new google.maps.LatLng(latitude, longitude));
 
-    // Clicking on the Map moves the bouncing red marker
-    google.maps.event.addListener(map, 'click', function(e){
-        var marker = new google.maps.Marker({
-            position: e.latLng,
-            animation: google.maps.Animation.BOUNCE,
-            map: map,
-            icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-        });
-
-        // When a new spot is selected, delete the old red bouncing marker
-        if(lastMarker){
-            lastMarker.setMap(null);
-        }
-
-        // Create a new red bouncing marker and move to it
-        lastMarker = marker;
-        map.panTo(marker.position);
-
-
-        googleMapService.clickLat = marker.getPosition().lat();
-        googleMapService.clickLong = marker.getPosition().lng();
-        $rootScope.$broadcast("clicked");
-    });
 };
 
 

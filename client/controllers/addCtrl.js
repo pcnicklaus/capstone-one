@@ -32,7 +32,6 @@ app.controller('addCtrl', ['$scope', '$http', 'geolocation', 'geoService', '$roo
         $scope.$apply(function(){
             $scope.formData.latitude = parseFloat(geoService.clickLat).toFixed(3);
             $scope.formData.longitude = parseFloat(geoService.clickLong).toFixed(3);
-            $scope.formData.htmlverified = "Nope (Thanks for spamming my map...)";
         });
     });
 
@@ -43,8 +42,7 @@ app.controller('addCtrl', ['$scope', '$http', 'geolocation', 'geoService', '$roo
             username: $scope.formData.username,
             gender: $scope.formData.gender,
             age: $scope.formData.age,
-            location: [$scope.formData.longitude, $scope.formData.latitude],
-            htmlverified: $scope.formData.htmlverified
+            location: [$scope.formData.longitude, $scope.formData.latitude]
         };
 
         console.log(userData, " userdata");

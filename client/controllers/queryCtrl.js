@@ -39,9 +39,7 @@ app.controller('queryCtrl', ['$scope', '$log', '$http', '$rootScope', 'geolocati
             female: $scope.formData.female,
             other: $scope.formData.other,
             minAge: $scope.formData.minage,
-            maxAge: $scope.formData.maxage,
-            favlang: $scope.formData.favlang,
-            reqVerified: $scope.formData.verified
+            maxAge: $scope.formData.maxage
         };
 
         // Post the queryBody to the /query POST route to retrieve the filtered results

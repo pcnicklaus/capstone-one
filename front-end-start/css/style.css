@@ -20,9 +20,10 @@ html, body {
   width: 100%;
 }
 
-.home-panel {
-  padding-top: 400px;
-  opacity: .30;
+.transparent-container {
+  margin-top: 300px;
+  padding: 30px;
+  background: rgba(170,187,97, 0.5);
 }
 
 .panel-body lead home {
@@ -43,6 +44,21 @@ html, body {
   margin: 0;
   padding: 0;
   color: black;
+}
+
+/*symbol spacing*/
+.symbol-one {
+  margin-top: 50px;
+}
+.symbol-two {
+  margin-top: 100px;
+}
+.symbol-three {
+  margin-top: 50px;
+
+}
+.symbol-four {
+  margin-top: 105px;
 }
 
 /* additional sections */
