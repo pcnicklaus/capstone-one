@@ -48,7 +48,7 @@ app.factory('geoService', function($rootScope, $http){
                 var  contentString =
                     '<p><b>Username</b>: ' + dater.username +
                     '<br><b>Age</b>: ' + dater.age +
-                    '<br><b>Gender</b>: ' + dater.gender +
+                    '<br><b>Gender</b>: ' + dater.gender  +
                     '</p>';
 
                 locations.push({
@@ -73,7 +73,7 @@ var initialize = function(latitude, longitude, filter) {
     if (!map){
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
+            zoom: 13,
             center: myLatLng
         });
     }
@@ -103,10 +103,39 @@ var initialize = function(latitude, longitude, filter) {
 
     // bouncing red marker
     var initialLocation = new google.maps.LatLng(latitude, longitude);
+    var marker = new google.maps.Marker({
+        position: initialLocation,
+        animation: google.maps.Animation.BOUNCE,
+        map: map,
+        icon: 'http://www.inkace.com/media/catalog/product/cache/1/thumbnail/50x/9df78eab33525d08d6e5fb8d27136e95/f/u/fuck_off_vinyl_decal.jpg'
+    });
+    // lastMarker = marker;
 
 
     map.panTo(new google.maps.LatLng(latitude, longitude));
 
+    // Clicking on the Map moves the bouncing red marker
+    // google.maps.event.addListener(map, 'click', function(e){
+    //     var marker = new google.maps.Marker({
+    //         position: e.latLng,
+    //         map: map,
+    //         icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+    //     });
+
+        // When a new spot is selected, delete the old red bouncing marker
+        // if(lastMarker){
+        //     lastMarker.setMap(null);
+        // }
+
+        // Create a new red bouncing marker and move to it
+        // lastMarker = marker;
+        // map.panTo(marker.position);
+
+
+        // googleMapService.clickLat = marker.getPosition().lat();
+        // googleMapService.clickLong = marker.getPosition().lng();
+        // $rootScope.$broadcast("clicked");
+    // });
 };
 
 

@@ -7,7 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('_example:server');
 var http = require('http');
-
 /**
  * Get port from environment and store in Express.
  */
@@ -20,6 +19,15 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io')(server);
+
+io.on('connect', function(socket) {
+  // listens for location connection, receveies the data that we pass from the client
+  socket.on('location', function(data) {
+    // sends socket.broadcast.emit - tht snds to everybody the initial client sender
+    io.emit('location', data);
+  });
+});
 
 /**
  * Listen on provided port, on all network interfaces.

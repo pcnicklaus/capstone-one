@@ -6,8 +6,8 @@ app.controller('addCtrl', ['$scope', '$http', 'geolocation', 'geoService', '$roo
     var long = 0;
 
     // initial setting
-    $scope.formData.latitude = 39.500;
-    $scope.formData.longitude = -98.350;
+    $scope.formData.latitude = 39.7392;
+    $scope.formData.longitude = -104.9903;
 
     geolocation.getLocation().then(function(data){
 
@@ -18,10 +18,17 @@ app.controller('addCtrl', ['$scope', '$http', 'geolocation', 'geoService', '$roo
         $scope.formData.longitude = parseFloat(coords.long).toFixed(3);
         $scope.formData.latitude = parseFloat(coords.lat).toFixed(3);
 
-        // Display message confirming that the coordinates verified.
-        $scope.formData.htmlverified = "Yep (Thanks for giving us real data!)";
+
 
         geoService.refresh($scope.formData.latitude, $scope.formData.longitude);
+
+        var yourCoords = new google.maps.LatLng($scope.formData.latitude, $scope.formData.longitude);
+
+        var marker = new google.maps.Marker({
+            position: yourCoords,
+            map: map,
+            title:"You are here!"
+        });
 
     });
 

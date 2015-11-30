@@ -5,12 +5,13 @@ app.controller('queryCtrl', ['$scope', '$log', '$http', '$rootScope', 'geolocati
     var queryBody = {};
 
 
-    // Get User's actual coordinates based on HTML5 at window load
+    // this is supposted to get user's actual coordinates based on HTML5 at window load
     geolocation.getLocation().then(function(data){
         coords = {
             lat: data.coords.latitude,
             long: data.coords.longitude
         };
+        console.log(coords.lat, coords.long, "in query control");
 
         // Set the latitude and longitude equal to the HTML5 coordinates
         $scope.formData.longitude = parseFloat(coords.long).toFixed(3);

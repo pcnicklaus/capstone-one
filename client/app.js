@@ -1,3 +1,6 @@
+//socket
+var socket = io();
+
 var app = angular.module('MyApp', ['ngRoute', 'satellizer', 'geolocation']);
 
 app.config(function ($routeProvider, $authProvider, $locationProvider) {
@@ -75,6 +78,11 @@ app.config(function ($routeProvider, $authProvider, $locationProvider) {
             templateUrl: 'partials/queryForm.html',
             controller: 'queryCtrl'
         });
+
+        // .when('/findme', {
+        //     templateUrl: 'partials/findme.html',
+        //     controller: 'queryCtrl'
+        // });
         // .otherwise('/');
 
 });
